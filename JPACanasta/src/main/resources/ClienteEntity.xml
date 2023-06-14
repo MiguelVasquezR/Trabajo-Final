@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Modelo.ClienteEntity">
+        <table name="cliente" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="nomEmpresa">
+                <column name="nom_empresa"/>
+            </basic>
+            <basic name="tamañoEmpresa">
+                <column name="tamaño_empresa"/>
+            </basic>
+            <many-to-one name="personaByIdPersona" optional="true" target-entity="Modelo.PersonaEntity">
+                <join-column name="id_persona" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="compraVentasById" mapped-by="clienteByIdCliente"
+                         target-entity="Modelo.CompraVentaEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>

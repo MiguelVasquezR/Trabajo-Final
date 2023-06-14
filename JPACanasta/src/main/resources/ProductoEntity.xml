@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Modelo.ProductoEntity">
+        <table name="producto" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="clave">
+                <column name="clave"/>
+            </basic>
+            <basic name="nombre">
+                <column name="nombre"/>
+            </basic>
+            <basic name="precio">
+                <column name="precio"/>
+            </basic>
+            <basic name="cantidad">
+                <column name="cantidad"/>
+            </basic>
+            <basic name="tipo">
+                <column name="tipo"/>
+            </basic>
+            <many-to-one name="proveedorByIdProveedor" optional="true" target-entity="Modelo.ProveedorEntity">
+                <join-column name="id_proveedor" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="categoriaByIdCategoria" optional="true" target-entity="Modelo.CategoriaEntity">
+                <join-column name="id_categoria" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="productosById" mapped-by="productoByIdProducto" target-entity="Modelo.ProductosEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>

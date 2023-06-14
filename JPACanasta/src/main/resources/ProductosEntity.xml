@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Modelo.ProductosEntity">
+        <table name="productos" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <many-to-one name="productoByIdProducto" optional="true" target-entity="Modelo.ProductoEntity">
+                <join-column name="id_producto" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="compraVentaByIdCompra" optional="true" target-entity="Modelo.CompraVentaEntity">
+                <join-column name="id_compra" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>

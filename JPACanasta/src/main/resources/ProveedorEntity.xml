@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Modelo.ProveedorEntity">
+        <table name="proveedor" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="compania">
+                <column name="compania"/>
+            </basic>
+            <basic name="fechaEntrega">
+                <column name="fecha_Entrega"/>
+            </basic>
+            <basic name="fechaRecPro">
+                <column name="fecha_rec_pro"/>
+            </basic>
+            <many-to-one name="personaByIdPersona" optional="true" target-entity="Modelo.PersonaEntity">
+                <join-column name="id_persona" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="productosById" mapped-by="proveedorByIdProveedor" target-entity="Modelo.ProductoEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>

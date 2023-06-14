@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Modelo.CompraVentaEntity">
+        <table name="compra_venta" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="clave">
+                <column name="clave"/>
+            </basic>
+            <basic name="tipo">
+                <column name="tipo"/>
+            </basic>
+            <basic name="fecha">
+                <column name="fecha"/>
+            </basic>
+            <many-to-one name="usuarioByIdUsuario" optional="true" target-entity="Modelo.UsuarioEntity">
+                <join-column name="id_usuario" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="clienteByIdCliente" optional="true" target-entity="Modelo.ClienteEntity">
+                <join-column name="id_cliente" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="productosById" mapped-by="compraVentaByIdCompra" target-entity="Modelo.ProductosEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>

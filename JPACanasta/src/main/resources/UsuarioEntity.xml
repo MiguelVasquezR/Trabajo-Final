@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Modelo.UsuarioEntity">
+        <table name="usuario" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="usuario">
+                <column name="usuario"/>
+            </basic>
+            <basic name="contrasena">
+                <column name="contrasena"/>
+            </basic>
+            <many-to-one name="personaByIdPersona" optional="true" target-entity="Modelo.PersonaEntity">
+                <join-column name="id_persona" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="compraVentasById" mapped-by="usuarioByIdUsuario"
+                         target-entity="Modelo.CompraVentaEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.CategoriaEntity">
+        <table name="categoria" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="clave">
+                <column name="clave"/>
+            </basic>
+            <basic name="nombre">
+                <column name="nombre"/>
+            </basic>
+            <one-to-many name="productosById" mapped-by="categoriaByIdCategoria" target-entity="Modelo.ProductoEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.ClienteEntity">
+        <table name="cliente" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="nomEmpresa">
+                <column name="nom_empresa"/>
+            </basic>
+            <basic name="tamañoEmpresa">
+                <column name="tamaño_empresa"/>
+            </basic>
+            <many-to-one name="personaByIdPersona" optional="true" target-entity="Modelo.PersonaEntity">
+                <join-column name="id_persona" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="compraVentasById" mapped-by="clienteByIdCliente"
+                         target-entity="Modelo.CompraVentaEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.CompraVentaEntity">
+        <table name="compra_venta" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="clave">
+                <column name="clave"/>
+            </basic>
+            <basic name="tipo">
+                <column name="tipo"/>
+            </basic>
+            <basic name="fecha">
+                <column name="fecha"/>
+            </basic>
+            <many-to-one name="usuarioByIdUsuario" optional="true" target-entity="Modelo.UsuarioEntity">
+                <join-column name="id_usuario" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="clienteByIdCliente" optional="true" target-entity="Modelo.ClienteEntity">
+                <join-column name="id_cliente" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="productosById" mapped-by="compraVentaByIdCompra" target-entity="Modelo.ProductosEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.DireccionEntity">
+        <table name="direccion" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="calle">
+                <column name="calle"/>
+            </basic>
+            <basic name="numero">
+                <column name="numero"/>
+            </basic>
+            <basic name="colonia">
+                <column name="colonia"/>
+            </basic>
+            <basic name="ciudad">
+                <column name="ciudad"/>
+            </basic>
+            <one-to-many name="personasById" mapped-by="direccionByIdDireccion" target-entity="Modelo.PersonaEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.PersonaEntity">
+        <table name="persona" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="clave">
+                <column name="clave"/>
+            </basic>
+            <basic name="fechaNac">
+                <column name="fecha_nac"/>
+            </basic>
+            <basic name="nombre">
+                <column name="nombre"/>
+            </basic>
+            <basic name="apellido">
+                <column name="apellido"/>
+            </basic>
+            <basic name="correo">
+                <column name="correo"/>
+            </basic>
+            <basic name="telefono">
+                <column name="telefono"/>
+            </basic>
+            <many-to-one name="direccionByIdDireccion" optional="true" target-entity="Modelo.DireccionEntity">
+                <join-column name="id_direccion" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="clientesById" mapped-by="personaByIdPersona" target-entity="Modelo.ClienteEntity"/>
+            <one-to-many name="proveedorsById" mapped-by="personaByIdPersona" target-entity="Modelo.ProveedorEntity"/>
+            <one-to-many name="usuariosById" mapped-by="personaByIdPersona" target-entity="Modelo.UsuarioEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.ProductoEntity">
+        <table name="producto" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="clave">
+                <column name="clave"/>
+            </basic>
+            <basic name="nombre">
+                <column name="nombre"/>
+            </basic>
+            <basic name="precio">
+                <column name="precio"/>
+            </basic>
+            <basic name="cantidad">
+                <column name="cantidad"/>
+            </basic>
+            <basic name="tipo">
+                <column name="tipo"/>
+            </basic>
+            <many-to-one name="proveedorByIdProveedor" optional="true" target-entity="Modelo.ProveedorEntity">
+                <join-column name="id_proveedor" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="categoriaByIdCategoria" optional="true" target-entity="Modelo.CategoriaEntity">
+                <join-column name="id_categoria" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="productosById" mapped-by="productoByIdProducto" target-entity="Modelo.ProductosEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.ProductosEntity">
+        <table name="productos" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <many-to-one name="productoByIdProducto" optional="true" target-entity="Modelo.ProductoEntity">
+                <join-column name="id_producto" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="compraVentaByIdCompra" optional="true" target-entity="Modelo.CompraVentaEntity">
+                <join-column name="id_compra" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="Modelo.ProveedorEntity">
+        <table name="proveedor" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="compania">
+                <column name="compania"/>
+            </basic>
+            <basic name="fechaEntrega">
+                <column name="fecha_Entrega"/>
+            </basic>
+            <basic name="fechaRecPro">
+                <column name="fecha_rec_pro"/>
+            </basic>
+            <many-to-one name="personaByIdPersona" optional="true" target-entity="Modelo.PersonaEntity">
+                <join-column name="id_persona" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="productosById" mapped-by="proveedorByIdProveedor" target-entity="Modelo.ProductoEntity"/>
+        </attributes>
+    </entity>
+    <entity class="Modelo.UsuarioEntity">
+        <table name="usuario" schema="canastabd" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="usuario">
+                <column name="usuario"/>
+            </basic>
+            <basic name="contrasena">
+                <column name="contrasena"/>
+            </basic>
+            <many-to-one name="personaByIdPersona" optional="true" target-entity="Modelo.PersonaEntity">
+                <join-column name="id_persona" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="compraVentasById" mapped-by="usuarioByIdUsuario"
+                         target-entity="Modelo.CompraVentaEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>
